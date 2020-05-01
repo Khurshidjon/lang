@@ -24,6 +24,11 @@ Route::group(
         Route::get('/', 'FrontendController@index')->name('frontend.index');
         Route::get('/give-question', 'FrontendController@giveQuestion')->name('frontend.giveQuestion');
         Route::post('/take-question', 'FrontendController@takeQuestion')->name('frontend.takeQuestion');
+
+        Route::group(['prefix' => 'orders', 'middleware' => 'auth'], function () {
+            Route::get('{any?}', 'OrdersController@index')->where(['any' => '.*'])->name('order.index');
+        });
+
 });
 Auth::routes();
 Route::group(['prefix' => 'admin'], function () {
@@ -36,6 +41,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('questions/{question}/show', 'QuestionController@show')->name('questions.show');
     Route::resource('menus', 'MenuController');
     Route::resource('services', 'ServiceController');
+    Route::resource('settings', 'SettingController');
+
     Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
 
 

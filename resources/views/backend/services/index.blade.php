@@ -7,7 +7,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-              <a class="card-category btn btn-success" href="{{ route('services.create') }}"> Create new menu</a>
+              <a class="card-category btn btn-success" href="{{ route('services.create') }}"> Create new service</a>
           </div>
           <div class="card-body">
             <div class="table-responsive">

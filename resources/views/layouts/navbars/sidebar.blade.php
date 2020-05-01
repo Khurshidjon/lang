@@ -53,9 +53,9 @@
             <p>{{ __('Вопросы') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'questions' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('questions') }}">
-          <i class="material-icons"></i>
+      <li class="nav-item{{ $activePage == 'settings' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('settings.index') }}">
+          <i class="material-icons">settings</i>
             <p>{{ __('Настройки') }}</p>
         </a>
       </li>

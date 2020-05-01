@@ -7,6 +7,7 @@ use App\Mail\SendMedia;
 use App\Question;
 use App\QuestionFiles;
 use App\Service;
+use App\Setting;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -14,8 +15,29 @@ class FrontendController extends Controller
     public function index()
     {
         $services = Service::query()->where('status', 1)->get();
+        $services_we_offer = Setting::where('key', 'service_we_offer')->first();
+        $offer_one = Setting::where('key', 'offer_one')->first();
+        $offer_two = Setting::where('key', 'offer_two')->first();
+        $offer_three = Setting::where('key', 'offer_three')->first();
+        $offer_four = Setting::where('key', 'offer_four')->first();
+        $offer_five = Setting::where('key', 'offer_five')->first();
+        $offer_six = Setting::where('key', 'offer_six')->first();
+        $our_difference = Setting::where('key', 'our_difference')->first();
+        $about_us = Setting::where('key', 'about_us')->first();
+        $our_price = Setting::where('key', 'our_price')->first();
+
         return view('frontend.index', [
-            'services' => $services
+            'services' => $services,
+            'services_we_offer' => $services_we_offer,
+            'offer_one' => $offer_one,
+            'offer_two' => $offer_two,
+            'offer_three' => $offer_three,
+            'offer_four' => $offer_four,
+            'offer_five' => $offer_five,
+            'offer_six' => $offer_six,
+            'our_difference' => $our_difference,
+            'about_us' => $about_us,
+            'our_price' => $our_price,
         ]);
     }
 

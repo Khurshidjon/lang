@@ -41,7 +41,7 @@ class MenuController extends Controller
             'title_uz' => 'string|min:3|required',
             'title_en' => 'string|min:3|required',
             'title_ru' => 'string|min:3|required',
-            'url' => 'string',
+//            'url' => 'string',
         ]);
 
         $menu = new Menu();

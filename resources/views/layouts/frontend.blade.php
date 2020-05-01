@@ -1,31 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <title>Language</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Khurshid</title>
+    <meta name="keywords" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
+    <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodmain-wrapper.">
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,,500,600,700" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('assets/css/open-iconic-bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('assets/css/ionicons.min.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/jquery.timepicker.css') }}">
-
-
-    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/icomoon.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/flat-icon/flaticon.css') }}">
+    <link rel="stylesheet" href="{{asset('temp/styles/styles.css') }}">
+{{--    <link rel="stylesheet" href="{{asset('frontend/css/style.css') }}">--}}
+    <link rel="stylesheet" href="{{asset('frontend/css/main.css') }}">
 </head>
 <body>
 @php
@@ -33,140 +19,169 @@
     $lang = App::getLocale();
     //dd($lang);
 @endphp
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">CoHost</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                @foreach($menus as $menu)
-                    <li class="nav-item {{--active--}}  {{ $menu->hasChildren?'dropdown':''  }}">
-                        <a href="{{ $menu->page_id==null?$lang . $menu->url:$menu->url }}" target="{{ $menu->target }}" class="nav-link">{{ $menu->{'title_'.$lang} }}</a>
-                        @if ($menu->hasChildren)
-                            <ul class="submenu">
-                                @foreach($menu->submenu as $submenu)
-                                    <li class="list-group-item text-dark">
-                                        <a rel="alternate" href="{{  $submenu->page_id==null?$lang . $submenu->url:$submenu->url }}"  target="{{ $submenu->target }}">{{ $submenu->{'title_'.$lang} }}</a>
-                                    </li>
+<div class="main-wrapper">
+    <header class="header header--bg">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md sticky-top">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">{{ $site_logo_title!=null?$site_logo_title->{'title_'.$lang}:'' }}</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav pull-right">
+                        @foreach($menus as $menu)
+                            <li>
+                                <a href="{{ $menu->page_id==null?$lang . $menu->url:$menu->url }}" target="{{ $menu->target }}">{{ $menu->{'title_'.$lang} }}</a>
+                                @if ($menu->hasChildren)
+                                    <ul class="submenu">
+                                        @foreach($menu->submenu as $submenu)
+                                            <li class="list-group-item text-dark">
+                                                <a rel="alternate" href="{{  $submenu->page_id==null?$lang . $submenu->url:$submenu->url }}"  target="{{ $submenu->target }}">{{ $submenu->{'title_'.$lang} }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
+                        <li class="nav-item dropdown" style="border: 1px solid #ffffff; border-radius: 7px">
+                            <a href="javascript:void (0)" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <img src="{{  asset('assets/images/').'/'.App::getLocale().'.jpg'  }}" style="width: 20px"  alt=""> {{ $langArr[App::getLocale()] }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    @if (App::getLocale() != $localeCode)
+                                        <li>
+                                            <a rel="alternate" hreflang="{{ $localeCode }}" class="{{ $lang==$localeCode?'text-info':'' }}" style="color: #0b75c9" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                <img style="width: 20px" src="{{ asset('assets/images/').'/'.$localeCode.'.jpg'  }} "
+                                                     alt="">
+                                                {{ $properties['native'] }}
+                                            </a>
+                                        </li>
+                                    @endif
                                 @endforeach
                             </ul>
-                        @endif
-                    </li>
-                @endforeach
-                <li class="nav-item dropdown">
-                    <a href="javascript:void (0)" class="nav-link">
-                        <img src="{{  asset('assets/images/').'/'.App::getLocale().'.jpg'  }}" style="width: 20px"  alt=""> {{ $langArr[App::getLocale()] }}
-                    </a>
-                    <ul class="submenu">
-                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            @if (App::getLocale() != $localeCode)
-                                <li class="list-group-item">
-                                    <a rel="alternate" hreflang="{{ $localeCode }}" class="text-uppercase {{ $lang==$localeCode?'text-info':'' }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                        <img style="width: 20px" src="{{ asset('assets/images/').'/'.$localeCode.'.jpg'  }} "
-                                             alt="">
-                                        {{ $properties['native'] }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
+                        </li>
                     </ul>
-                </li>
-                <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Get started</span></a></li>
-            </ul>
+                </div>
+            </nav>
+            <section class="slider">
+                <div class="page-section text-center">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @foreach($services as $key => $service)
+                                <div class="item {{ $key == 0?'active':'' }}">
+                                    <div class="header__content text-center">
+                                        <h1 class="header__content__title">{{ $service->{'title_'.$lang} }}</h1>
+                                        <p class="header__content__paragraph">{{ $service->{'description_'.$lang} }}</p>
+                                       <div style="margin-bottom: 50px">
+                                           <a class="button button--margin-right button--hover" href="{{ route('order.index') }}">@lang('pages.read_more')</a>
+                                       </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <i class="material-icons">chevron_left</i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <i class="material-icons">chevron_right</i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>
-</nav>
-<!-- END nav -->
-@yield('content', 'Default Content')
-<footer class="ftco-footer ftco-bg-dark ftco-section">
+    </header>
+    @yield('content', 'Default Content')
+    <footer class="footer footer--bg">
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 bg-primary p-4">
-                    <h2 class="ftco-heading-2">CoHost</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <ul class="ftco-footer-social list-unstyled mb-0">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Unseful Links</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Servers</a></li>
-                        <li><a href="javascript:void(0)" class="py-2 d-block">Windos Hosting</a></li>
-                        <li><a href="#" class="py-2 d-block">Cloud Hosting</a></li>
-                        <li><a href="#" class="py-2 d-block">OS Servers</a></li>
-                        <li><a href="#" class="py-2 d-block">Linux Servers</a></li>
-                        <li><a href="#" class="py-2 d-block">Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Navigational</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Home</a></li>
-                        <li><a href="#" class="py-2 d-block">Domain</a></li>
-                        <li><a href="#" class="py-2 d-block">Hosting</a></li>
-                        <li><a href="#" class="py-2 d-block">About</a></li>
-                        <li><a href="#" class="py-2 d-block">Blog</a></li>
-                        <li><a href="#" class="py-2 d-block">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Office</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+        <div class="page-section">
+            <div class="row gutters-100">
+                <div class="col-md-4 col-lg-3">
+                    <div class="footer__first">
+                        <h2 class="footer__title">{{ $site_logo_title!=null?$site_logo_title->{'value_'.$lang}:'' }}</h2>
+                        <p class="footer-first__paragraph">{!! $site_logo_title!=null?$site_logo_title->{'content_'.$lang}:'' !!}</p>
+                        <ul class="footer-first__social-icons">
+                            <li>
+                                <a href="#">
+                                    <img src="{{ asset('material/img/facebook.svg') }}" style="width: 25px;" alt="">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="{{ asset('material/img/youtube.svg') }}" style="width: 25px;" alt="">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="{{ asset('material/img/telegram.svg') }}" style="width: 25px;" alt="">
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
+                <div class="col-md-6 col-lg-2">
+                    <div class="footer__second">
+                        <h2 class="footer__title text-uppercase">@lang('pages.links')</h2>
+                        <ul>
+                            @foreach($footer_menus as $menu)
+                                <li>
+                                    <a href="{{ $menu->page_id==null?$lang . $menu->url:$menu->url }}" target="{{ $menu->target }}">{{ $menu->{'title_'.$lang} }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="footer__third">
+                        <h2 class="footer__title text-uppercase">@lang('pages.contacts')</h2>
+                        <ul>
+                            <li><span class="glyphicon glyphicon-envelope"></span> <a href="#">dartagency@gmail.com</a></li>
+                            <li><span class="glyphicon glyphicon-earphone"></span> <a href="#">+0123-345-6789</a></li>
+                        </ul>
+                        <h4 class="footer__subscribe__title">@lang('pages.subscribe')</h4>
+                        <div class="subscribe-section">
+                            <input type="email" class="form-control" size="50" placeholder="Enter Your Email" required>
+                            <button class="subscribe-section__button" type="button"><img src="{{ asset('assets/images/send-icon.png') }}" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="footer__fourth">
+                        <h4 class="footer__title text-uppercase">@lang('pages.address')</h4>
+                        <div style="position:relative;overflow:hidden;">
+                            <iframe src="https://yandex.uz/map-widget/v1/-/CSW~UT8p" width="560" height="180" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-
-                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-            </div>
+            <hr class="footer__horizontal-bar">
+            <p class="footer__bottom-paragraph">&copy; Copyright 2017 <a href="#" style="color: #00aafe;font-weight:bold;">DartThemes</a>. All Rights Reserved</p>
         </div>
     </div>
 </footer>
+</div>
 
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+<script src="{{ asset('assets/jquery/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 
+<script>
+    $(document).ready(function() {
 
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
-<script src="{{ asset('assets/js/popper.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.easing.1.3.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.waypoints.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.stellar.min.js') }}"></script>
-<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
-<script src="{{ asset('assets/js/aos.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.animateNumber.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.timepicker.min.js') }}"></script>
-<script src="{{ asset('assets/js/scrollax.min.js') }}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="{{ asset('assets/js/google-map.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
-<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-@stack('scripts')
+        var $videoSrc = $("#video").attr("src");
+
+        $('#myModal').on('hide.bs.modal', function (e) {
+            $("#video").attr('src',$videoSrc);
+        });
+    });
+</script>
 </body>
 </html>

@@ -55,7 +55,7 @@
                                           <label class="col-sm-2 col-form-label">{{ __('Url') }}</label>
                                           <div class="col-sm-7">
                                               <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">
-                                                  <input class="form-control" id="input-url" name="url" type="text" placeholder="{{ __('Url') }}" value="{{ old('url') }}" required aria-required="true"/>
+                                                  <input class="form-control" id="input-url" name="url" type="text" placeholder="{{ __('Url') }}" value="{{ old('url') }}"/>
                                               </div>
                                           </div>
                                       </div>

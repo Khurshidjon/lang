@@ -13,11 +13,13 @@
         "barryvdh/laravel-ide-helper": "^2.6",
         "fideloper/proxy": "^4.0",
         "goodoneuz/pay-uz": "^2.0",
+        "intervention/image": "^2.5",
         "laravel-frontend-presets/material-dashboard": "^1.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
         "mcamara/laravel-localization": "^1.5",
+        "smalot/pdfparser": "^0.15.0",
         "timehunter/laravel-google-recaptcha-v3": "~2.2.26"
     },
     "require-dev": {

@@ -1,0 +1,11 @@
+.price__panel-wrapper .panel-body{
+    list-style: none;
+}
+.price__panel-wrapper .panel-body li{
+    font-size: 16px;
+    color: #7d7d7d;
+    line-height: 40px;
+}
+.price__panel-wrapper .panel:hover .panel-body li{
+    color: #ffffff;
+}

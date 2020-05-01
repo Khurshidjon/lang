@@ -7,7 +7,7 @@ return [
     | Application Name
     |--------------------------------------------------------------------------
     |
-    | This value is the name of your application. This value is used when the
+    | This value is the name of your application. This value is used when thedark
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
     |
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'uz',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
